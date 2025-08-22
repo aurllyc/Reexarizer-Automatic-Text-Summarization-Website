@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDotCircle, faPaste } from "@fortawesome/free-solid-svg-icons";
+
 const SummarizeComponent: React.FC = () => {
   const [paragraph, setParagraph] = useState("");
   const [summary, setSummary] = useState("");
-  const [isCopied, setIsCopied] = useState(false);
+  const [isPaste, setIsPaste] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const characterCount = paragraph.length > 1000 ? 1000 : paragraph.length;
- 
+  const [mode, setMode] = useState("paragraph, bullet, custom");
 
-  const handleRefresh = () => {
-    window.location.reload();
-  };
+  const wordsCount = paragraph.trim()
+    ? paragraph.trim().split(/\s+/).length
+    : 0;
 
   const handleSummarize = () => {
     if (!paragraph) {
@@ -18,7 +20,7 @@ const SummarizeComponent: React.FC = () => {
     }
 
     setIsLoading(true);
-    
+
     setTimeout(() => {
       const sentences = paragraph.split(".");
       const summarizedText =
@@ -29,100 +31,184 @@ const SummarizeComponent: React.FC = () => {
     }, 2000); // (2 seconds)
   };
 
-  const handleCopyText = () => {
-    navigator.clipboard.writeText(summary);
-    setIsCopied(true);
+  // Paste Text
+  const handlePasteText = () => {
+    navigator.clipboard
+      .readText()
+      .then((text) => {
+        setParagraph(text.slice(0));
+        setSummary("");
+        setIsPaste(true);
+      })
+      .catch((err) => {
+        console.error("Failed to paste text: ", err);
+      });
   };
 
+  // Doc
+
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setParagraph(event.target.value);
-    // setParagraph(paragraph.slice(0, 1000));
-    const paragraph = event.target.value.slice(0, 1000);
-    setParagraph(paragraph);
+    const value = event.target.value.slice(0);
+    setParagraph(value);
     setSummary("");
-    setIsCopied(false);
+    setIsPaste(false);
   };
 
   return (
-    <div className="flex w-full">
-      <div className="grid h-50 flex-grow card bg-base-300 rounded-box">
-        <div className="py-5 px-3">
-          <label className="block">
-            <span className="flex text-lg font-medium">
-              Type/paste the text to be summarised
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="stroke-success shrink-0 w-6 h-6 ml-1"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
-            </span>
-          </label>
+    <div className="flex-col items-center justify-between py-5 px-3">
+      <label className="flex items-center justify-between space-x-1">
+        <span className="flex text-lg font-medium">
+          Type/paste the text to be summarised
+        </span>
+        <select className="select select-xs sm:select-sm select-success">
+          <option value="id">🇮🇩 Indo</option>
+          <option value="en">🇺🇸 Eng</option>
+        </select>
+      </label>
 
-          <textarea
-            value={paragraph}
-            onChange={(e) => setParagraph(e.target.value)}
-            // onChange={handleChange}
-            className="textarea textarea-success textarea-lg w-full max-w-3xl text-sm mt-6"
-            placeholder="The fox and the owl were always Argumentative. They would often bicker about nonsense things until one day, the owl decided that it was enough. The owl flew up into the sky and declared that from now on, they would only argue when there was something worth arguing about."
-            rows={5}
-          />
-          <p className="text-sm text-right text-gray-500">
-            {characterCount}/1000
-          </p>
-
-          <div className="form-control mt-6">
-            <button
-              onClick={handleSummarize}
-              disabled={!paragraph}
-              className="btn btn-accent rounded-full text-base"
+      <div className="flex items-center space-x-2 my-2 bg-base-200 p-2 rounded-lg">
+        <div className="flex-col space-y-2">
+          <span className="text-md font-medium">Modes:</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <div
+              className={`badge badge-outline cursor-pointer font-medium text-sm ${
+                mode === "paragraph"
+                  ? "badge-info text-base-300"
+                  : "hover:bg-info hover:text-base-300"
+              }`}
+              onClick={() => setMode("paragraph")}
             >
-              Generate
-              {isLoading && <p className="loading loading-dots loading-sm"></p>}
-            </button>
+              Paragraph
+            </div>
+
+            <div
+              className={`badge badge-outline cursor-pointer font-medium text-sm ${
+                mode === "bullet"
+                  ? "badge-accent text-base-300"
+                  : "hover:bg-accent hover:text-base-300"
+              }`}
+              onClick={() => setMode("bullet")}
+            >
+              Bullet
+            </div>
+
+            <div
+              className={`badge badge-outline cursor-pointer font-medium text-sm ${
+                mode === "custom"
+                  ? "badge-secondary text-base-300"
+                  : "hover:bg-secondary hover:text-base-300"
+              }`}
+              onClick={() => setMode("custom")}
+            >
+              Custom
+            </div>
+          </div>
+        </div>
+        <div className="divider divider-horizontal"></div>
+
+        <div className="flex-col space-y-2">
+          <span className="text-md font-medium">Summary Length:</span>
+          <div className="w-full max-w-xs">
+            <div className="flex flex-col sm:flex-row items-start s:items-center gap-2">
+              <span className="hidden sm:inline">Short</span>
+              <div className="">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  defaultValue={50}
+                  step={25}
+                  className="range range-xs range-success"
+                />
+
+                <div className="flex justify-between text-xs">
+                  <span>
+                    <FontAwesomeIcon icon={faDotCircle} className="text-md" />
+                  </span>
+                  <span>
+                    <FontAwesomeIcon icon={faDotCircle} className="text-md" />
+                  </span>
+                  <span>
+                    <FontAwesomeIcon icon={faDotCircle} className="text-md" />
+                  </span>
+                  <span>
+                    <FontAwesomeIcon icon={faDotCircle} className="text-md" />
+                  </span>
+                  <span>
+                    <FontAwesomeIcon icon={faDotCircle} className="text-md" />
+                  </span>
+                </div>
+              </div>
+              <span className="hidden sm:inline">Long</span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="divider divider-horizontal"></div>
-      <div className="grid h-auto flex-grow card bg-base-300 rounded-box">
-        <div className="py-5 px-3">
-          <label className="block">
-            <span className="block text-xl font-medium">Results</span>
-          </label>
+      <div className="flex flex-col space-y-2">
+        <textarea
+          value={paragraph}
+          onChange={handleChange}
+          className="textarea textarea-success w-full text-sm mt-4 rounded-lg resize-none"
+          placeholder="Type or paste your text here..."
+          rows={5}
+        />
 
-          <div className="border border-success rounded-lg mt-6">
-            {summary && <p className="py-5 px-4">{summary}</p>}
-          </div>
-
-          {summary && (
-            <div className="form-control items-end mt-6">
-              <div className="justify-end">
-                <button
-                  onClick={handleRefresh}
-                  className="btn btn-accent rounded-full mr-2"
-                >
-                  Generate More
-                </button>
-                <button
-                  onClick={handleCopyText}
-                  className="btn btn-outline btn-accent rounded-full"
-                >
-                  {isCopied ? "Copied!" : "Copy"}
-                  {/* Copy
-                  {isCopied && <p className="text-success text-md">Copied!</p>} */}
-                </button>
-              </div>
-            </div>
-          )}
+        <div className="flex justify-between gap-2">
+          <input
+            type="file"
+            className="flex w-full max-w-sm file-input file-input-sm file-input-success"
+          />
+          <button
+            type="button"
+            onClick={handlePasteText}
+            className="btn btn-sm btn-outline btn-success"
+          >
+            <FontAwesomeIcon icon={faPaste} className="text-lg" />
+          </button>
         </div>
+      </div>
+      <p className="flex text-md font-medium mt-12 items-start justify-start">
+        {wordsCount} Words
+      </p>
+
+      <div className="flex flex-col space-y-2 mt-4">
+        <label className="text-md font-medium">Select Keywords:</label>
+        <ul className="list-none space-y-3">
+          {[1, 2].map((id) => (
+            <li
+              key={id}
+              className="flex items-center justify-between bg-base-200 p-3 rounded-lg"
+            >
+              <div
+                className={`badge badge-outline cursor-pointer font-medium text-sm ${
+                  mode === ""
+                    ? "badge-secondary text-base-300"
+                    : "hover:bg-secondary hover:text-base-300"
+                }`}
+                onClick={() => setMode("")}
+              >
+                Keyword {id}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="form-control mt-2">
+        <button
+          onClick={handleSummarize}
+          disabled={!paragraph}
+          className="btn btn-accent rounded-full text-base"
+        >
+          {isLoading ? (
+            <p className="loading loading-dots loading-sm"></p>
+          ) : summary ? (
+            "RE-SUMMARIZE"
+          ) : (
+            "SUMMARIZE"
+          )}
+        </button>
       </div>
     </div>
   );

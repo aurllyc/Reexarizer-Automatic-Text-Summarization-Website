@@ -1,5 +1,5 @@
 {
-  "name": "reexar",
+  "name": "Reexarizer",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,11 @@
     "deploy:vercel": "vercel"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.0.0",
+    "@fortawesome/free-brands-svg-icons": "^7.0.0",
+    "@fortawesome/free-regular-svg-icons": "^7.0.0",
+    "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "@fortawesome/react-fontawesome": "^0.2.5",
     "@tensorflow-models/mobilenet": "^2.1.0",
     "@tensorflow/tfjs": "^3.21.0",
     "@types/node": "20.3.1",
