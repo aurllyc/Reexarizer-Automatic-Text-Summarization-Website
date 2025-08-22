@@ -28,6 +28,7 @@
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
     "framer-motion": "^9.1.7",
+    "mammoth": "^1.10.0",
     "natural": "^6.5.0",
     "next": "13.4.7",
     "node-nlp": "^4.27.0",

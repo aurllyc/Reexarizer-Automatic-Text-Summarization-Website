@@ -53,11 +53,16 @@ const History: React.FC = () => {
               className="flex items-center justify-between bg-base-200 p-3 rounded-lg"
             >
               {/* Text */}
-              <div>
-                <h4 className="text-sm font-medium text-success">
-                  Summarized Text {id}
-                </h4>
-                <p className="text-sm">Summary details go here...</p>
+              <div className="flex items-center space-x-2">
+                <div className="text-4xl font-thin opacity-30 tabular-nums">
+                  {id}
+                </div>
+                <div className="flex flex-col">
+                  <h4 className="text-sm font-medium text-success">
+                    Summarized Text
+                  </h4>
+                  <p className="text-sm">Summary details go here...</p>
+                </div>
               </div>
 
               {/* Action Buttons */}

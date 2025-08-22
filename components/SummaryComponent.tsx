@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-
+import * as mammoth from "mammoth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDotCircle, faPaste } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDotCircle,
+  faPaste,
+  faAngleDown,
+  faCircleInfo,
+} from "@fortawesome/free-solid-svg-icons";
 
 const SummarizeComponent: React.FC = () => {
   const [paragraph, setParagraph] = useState("");
   const [summary, setSummary] = useState("");
   const [isPaste, setIsPaste] = useState(false);
+  const [isDoc, setIsDoc] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState("paragraph, bullet, custom");
 
@@ -45,7 +51,21 @@ const SummarizeComponent: React.FC = () => {
       });
   };
 
-  // Doc
+  // Docx
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const arrayBuffer = e.target?.result as ArrayBuffer;
+        const result = await mammoth.extractRawText({ arrayBuffer });
+        setParagraph(result.value);
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value.slice(0);
@@ -156,6 +176,8 @@ const SummarizeComponent: React.FC = () => {
 
         <div className="flex justify-between gap-2">
           <input
+            onChange={handleFileChange}
+            accept=".docx,.doc,.pdf"
             type="file"
             className="flex w-full max-w-sm file-input file-input-sm file-input-success"
           />
@@ -172,21 +194,42 @@ const SummarizeComponent: React.FC = () => {
         {wordsCount} Words
       </p>
 
-      <div className="flex flex-col space-y-2 mt-4">
-        <label className="text-md font-medium">Select Keywords:</label>
-        <ul className="list-none space-y-3">
+      <div className="flex-col items-center space-x-2 my-2 bg-base-200 p-2 rounded-lg">
+        <div className="flex items-center justify-between space-x-2">
+          <div className="flex">
+            <label className="text-md font-medium">Select Keywords</label>
+            <div className="dropdown">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-circle btn-ghost btn-xs text-info"
+              >
+                <FontAwesomeIcon icon={faCircleInfo} className="text-md" />
+              </div>
+              <div
+                tabIndex={0}
+                className="card card-sm dropdown-content bg-base-100 rounded-box z-1 w-64 shadow-sm"
+              >
+                <div tabIndex={0} className="py-2 px-4">
+                  <p>Pick keywords to focus the summary.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button className="btn btn-sm btn-circle btn-outline btn-success">
+            <FontAwesomeIcon icon={faAngleDown} className="text-lg" />
+          </button>
+        </div>
+        <ul className="list-none flex flex-col sm:flex-row sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
           {[1, 2].map((id) => (
-            <li
-              key={id}
-              className="flex items-center justify-between bg-base-200 p-3 rounded-lg"
-            >
+            <li key={id} className="flex items-center space-x-2">
               <div
                 className={`badge badge-outline cursor-pointer font-medium text-sm ${
-                  mode === ""
+                  mode === `keyword-${id}`
                     ? "badge-secondary text-base-300"
                     : "hover:bg-secondary hover:text-base-300"
                 }`}
-                onClick={() => setMode("")}
+                onClick={() => setMode(`keyword-${id}`)}
               >
                 Keyword {id}
               </div>

@@ -52,50 +52,50 @@ const Result: React.FC = () => {
       </div>
 
       {/* Hasil Summary */}
-      {/* {summary && ( */}
-      <textarea
-        className="textarea textarea-success w-full text-sm mt-6 rounded-lg resize-none"
-        rows={5}
-        value={summary}
-        readOnly
-      />
-      {/* )} */}
+      {summary && (
+        <textarea
+          className="textarea textarea-success w-full text-sm mt-6 rounded-lg resize-none"
+          rows={5}
+          value={summary}
+          readOnly
+        />
+      )}
 
       {/* Footer Info & Actions */}
-      {/* {summary && ( */}
-      <div className="flex items-center gap-4 justify-between mt-4">
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-          <p className="text-sm sm:text-md font-medium">
-            {sentencesCount} Sentences
-          </p>
-          <p className="text-sm sm:text-md font-medium">{wordsCount} Words</p>
-        </div>
-        <div className="flex  items-end gap-2">
-          <button
-            onClick={handleRefresh}
-            className="btn btn-xs sm:btn-sm btn-error btn-circle "
-          >
-            <FontAwesomeIcon icon={faTrashCan} className="text-md" />
-          </button>
+      {summary && (
+        <div className="flex items-center gap-4 justify-between mt-4">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+            <p className="text-sm sm:text-md font-medium">
+              {sentencesCount} Sentences
+            </p>
+            <p className="text-sm sm:text-md font-medium">{wordsCount} Words</p>
+          </div>
+          <div className="flex  items-end gap-2">
+            <button
+              onClick={handleRefresh}
+              className="btn btn-xs sm:btn-sm btn-error btn-circle "
+            >
+              <FontAwesomeIcon icon={faTrashCan} className="text-md" />
+            </button>
 
-          <button className="btn btn-xs sm:btn-sm btn-outline btn-success btn-circle">
-            <FontAwesomeIcon icon={faDownload} className="text-md" />
-          </button>
+            <button className="btn btn-xs sm:btn-sm btn-outline btn-success btn-circle">
+              <FontAwesomeIcon icon={faDownload} className="text-md" />
+            </button>
 
-          <button
-            onClick={handleCopyText}
-            className={`btn btn-xs sm:btn-sm btn-outline btn-success btn-circle ${
-              isCopied ? "btn-success" : ""
-            }`}
-          >
-            <FontAwesomeIcon
-              icon={isCopied ? faCheck : faCopy}
-              className="text-md"
-            />
-          </button>
+            <button
+              onClick={handleCopyText}
+              className={`btn btn-xs sm:btn-sm btn-outline btn-success btn-circle ${
+                isCopied ? "btn-success" : ""
+              }`}
+            >
+              <FontAwesomeIcon
+                icon={isCopied ? faCheck : faCopy}
+                className="text-md"
+              />
+            </button>
+          </div>
         </div>
-      </div>
-      {/* )} */}
+      )}
     </div>
   );
 };
