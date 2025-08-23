@@ -1,20 +1,75 @@
-# REEXARIZER
+# 📘 Reexarizer – Automatic Text Summarization App
 
-**README - Reexarizer (TSX)**
+Reexarizer is a web-based **AI-powered text summarization tool** built with **Next.js, TypeScript, TailwindCSS, DaisyUI**, and powered by **IBM Granite via Replicate API**.  
+It helps you quickly generate clean and concise summaries from long texts — in **English** and **Indonesian**.
 
-## Deskripsi Proyek
+---
 
-Reexarizer adalah website untuk memberikan solusi otomatisasi dalam merangkum teks. Pengguna dapat menggantikan proses manual merangkum dokumen atau artikel dengan menggunakan algoritma pemrosesan bahasa alami.
+## ✨ Features
 
-##
+- 📝 **Text Input Options**
+  - Manual text input
+  - Upload `.doc`, `.docx`, or `.txt` files
 
-🎉 Congratulations, your project was successfully generated with [Create Next Stack](https://www.create-next-stack.com/)!
+- 🌐 **Language Support**
+  - Supports **English** 🇬🇧 and **Indonesian** 🇮🇩 only
+  - Automatic language detection on uploaded text
 
-To get started, run:
+- 📑 **Summarization Styles**
+  - **Paragraph Mode** → coherent sentences
+  - **Bullet Mode** → clean bullet points (•)
+
+- 🎯 **Customization**
+  - Adjustable summary length
+  - Keyword highlighting (optional)
+  - Custom instructions prompt
+
+- 🧹 **Clean & Strict Output**
+  - Removes redundant spaces
+  - No emojis, introductions, or out-of-context text
+  - Output = summary only
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js, React, TypeScript  
+- **Styling**: TailwindCSS + DaisyUI  
+- **Backend API**: Next.js API Routes  
+- **AI Model**: [IBM Granite on Replicate](https://replicate.com/ibm-granite/granite-3.3-8b-instruct)  
+- **File Parsing**: `mammoth` (DOCX), native FS (TXT)  
+- **Language Detection**: `franc-min`, `langs`  
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/aurllyc/Reexarizer-Automatic-Text-Summarization-Website/
+cd Reexarizer
+````
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Setup Environment Variables
+
+Buat file **.env.local** di root project, lalu isi dengan token Replicate kamu:
+
+```bash
+REPLICATE_API_TOKEN=your_replicate_api_token_here
+```
+
+### 4. Run Development Server
 
 ```bash
 npm run dev
 ```
+
 
 ## Final Steps
 
