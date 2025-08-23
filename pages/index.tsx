@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SummarizeComponent from "../components/SummaryComponent";
-import Result from "../components/Result";
-import History from "../components/History";
+import Summarize from "./components/Summarize";
 
 const HomePage: React.FC = () => {
   const [currentYear, setCurrentYear] = useState<number>(
@@ -17,7 +15,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex items-center justify-center">
       <div className="flex-col items-center justify-center py-10 px-10 my-10">
         <div className="flex-col items-center justify-center py-5 px-2">
           <div className="flex items-center justify-start space-x-2">
@@ -26,29 +24,18 @@ const HomePage: React.FC = () => {
               Reexarizer
             </h1>
           </div>
-
           <p className="text-lg text-gray-450">
             Reexarizer is a tool for summarizing text.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="card bg-base-300 rounded-box h-50">
-            <SummarizeComponent />
-          </div>
-          <div className="card bg-base-300 rounded-box h-50">
-            <Result />
-          </div>
-
-          <div className="md:col-span-2 card bg-base-300 rounded-box h-50">
-            <History />
-          </div>
-        </div>
+        <Summarize />
       </div>
+
       <footer className="fixed bottom-0 w-full footer footer-center p-4 bg-base-300 text-base-content">
         <div>
           <p className="text-base text-gray-500">
-            &copy; {currentYear} - Reexarizer
+            &copy;{currentYear} - Reexarizer
           </p>
         </div>
       </footer>
