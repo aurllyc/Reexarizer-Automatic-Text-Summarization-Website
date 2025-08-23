@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import Replicate from "replicate"; // npm i replicate
+import Replicate from "replicate"; 
 
 // ---- Context Types ----
 type Language = "english" | "indonesia";
