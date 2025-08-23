@@ -7,27 +7,32 @@ It helps you quickly generate clean and concise summaries from long texts — in
 
 ## ✨ Features
 
-- 📝 **Text Input Options**
-  - Manual text input
-  - Upload `.doc`, `.docx`, or `.txt` files
+* 📝 **Summarization Modes**
 
-- 🌐 **Language Support**
-  - Supports **English** and **Indonesian** only
-  - Automatic language detection on uploaded text
+  * Paragraph summarization
+  * Bullet-point summarization
 
-- 📑 **Summarization Styles**
-  - **Paragraph Mode** → coherent sentences
-  - **Bullet Mode** → clean bullet points (•)
+* 🔑 **Keyword Extraction**
 
-- 🎯 **Customization**
-  - Adjustable summary length
-  - Keyword highlighting (optional)
-  - Custom instructions prompt
+  * Auto-extracted keywords with toggle (include/exclude)
 
-- 🧹 **Clean & Strict Output**
-  - Removes redundant spaces
-  - No emojis, introductions, or out-of-context text
-  - Output = summary only
+* 📂 **File Upload**
+
+  * Supports `.doc`, `.docx`, `.txt`
+  * Works with **English** and **Indonesian** text
+
+* 💾 **History**
+
+  * Stores up to **10 recent summaries**
+  * Viewable and re-downloadable anytime
+
+* 📥 **Export & Download**
+
+  * Download your summary in **.txt format**
+
+* ⚡ **Custom Prompt (Optional)**
+
+  * Add your own instructions for tailored summarization
 
 ---
 
