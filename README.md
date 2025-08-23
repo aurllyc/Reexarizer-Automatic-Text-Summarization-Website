@@ -12,7 +12,7 @@ It helps you quickly generate clean and concise summaries from long texts — in
   - Upload `.doc`, `.docx`, or `.txt` files
 
 - 🌐 **Language Support**
-  - Supports **English** 🇬🇧 and **Indonesian** 🇮🇩 only
+  - Supports **English** and **Indonesian** only
   - Automatic language detection on uploaded text
 
 - 📑 **Summarization Styles**
