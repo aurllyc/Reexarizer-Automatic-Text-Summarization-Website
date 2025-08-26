@@ -52,7 +52,6 @@ const Summarize: React.FC = () => {
     "Paragraph"
   );
   const [copied, setCopied] = useState(false);
-  const [copiedId, setCopiedId] = useState<string | null>(null);
   const [length, setLength] = useState(50);
   const [keywords, setKeywords] = useState<{ word: string; active: boolean }[]>(
     []
@@ -165,10 +164,10 @@ const Summarize: React.FC = () => {
     }
   };
 
-  const handleCopy = async (text: string, id: string) => {
-    await navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
+  const handleCopy = (content: string) => {
+    navigator.clipboard.writeText(content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleDownload = (content: string, filename: string) => {
@@ -342,7 +341,7 @@ const Summarize: React.FC = () => {
             {mode === "Paragraph" && keywords.length > 0 && (
               <div className="flex-col items-center space-x-2">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center">
+                  <div className="flex items-center mb-2">
                     <label className="text-md font-medium">
                       Select Keywords
                     </label>
@@ -554,10 +553,7 @@ const Summarize: React.FC = () => {
                       onClick={() => handleCopy(item.summary)}
                       className="btn btn-xs sm:btn-sm btn-outline btn-primary"
                     >
-                      <FontAwesomeIcon
-                        icon={copied === item.id ? faCheck : faCopy}
-                        className="text-sm"
-                      />{" "}
+                      <FontAwesomeIcon icon={faCopy} className="text-sm" />
                     </button>
                     <button
                       onClick={() =>
