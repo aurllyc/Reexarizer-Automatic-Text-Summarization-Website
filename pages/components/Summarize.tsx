@@ -553,7 +553,10 @@ const Summarize: React.FC = () => {
                       onClick={() => handleCopy(item.summary)}
                       className="btn btn-xs sm:btn-sm btn-outline btn-primary"
                     >
-                      <FontAwesomeIcon icon={faCopy} className="text-sm" />
+                      <FontAwesomeIcon
+                        icon={copied ? faCheck : faCopy}
+                        className="text-sm"
+                      />{" "}
                     </button>
                     <button
                       onClick={() =>
