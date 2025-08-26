@@ -10,8 +10,6 @@ import {
   faPaste,
   faCircleInfo,
   faDotCircle,
-  faRedo,
-  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
@@ -454,10 +452,7 @@ const Summarize: React.FC = () => {
                 className="btn btn-xs sm:btn-sm btn-outline btn-success btn-circle"
                 onClick={() => handleCopy(summary)}
               >
-                <FontAwesomeIcon
-                  icon={copied ? faCheck : faCopy}
-                  className="text-md"
-                />{" "}
+                <FontAwesomeIcon icon={faCopy} className="text-md" />{" "}
               </button>
             </div>
           </div>
