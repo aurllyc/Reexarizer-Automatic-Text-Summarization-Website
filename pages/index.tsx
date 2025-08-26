@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import Image from "next/image";
 import Summarize from "./components/Summarize";
 
 const HomePage: React.FC = () => {
@@ -25,9 +26,11 @@ const HomePage: React.FC = () => {
           <div className="flex-col items-center justify-center py-10 px-10 my-10">
             <div className="flex-col items-center justify-center py-5 px-2">
               <div className="flex items-center justify-start space-x-2">
-                <img
+                <Image
                   src="/favicon/book.ico"
                   alt="Favicon"
+                  width={32}
+                  height={32}
                   className="w-8 h-8"
                 />
                 <h1 className="font-bold text-4xl items-center text-success">
