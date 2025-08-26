@@ -71,7 +71,7 @@ ${text}
         .split(/[\n\-•]/)
         .map((line) => line.trim())
         .filter((line) => line.length > 0)
-        .map((line) => `• ${line}`)
+        .map((line) => (line.startsWith("•") ? line : `• ${line}`)) // cuma tambahin kalo belum ada
         .join("\n");
     }
 
