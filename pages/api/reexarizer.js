@@ -56,9 +56,15 @@ ${text}
     });
 
     // Convert output to string
-    let result = Array.isArray(output) ? output.join(" ") : String(output);
+    let result = Array.isArray(output) ? output.join("") : String(output);
 
     result = result.replace(/\s+/g, " ").trim();
+
+    // Bersihin header yang kadang ikut
+    result = result
+      .replace(/=== SUMMARY ===/gi, "")
+      .replace(/summary\s*:/gi, "")
+      .trim();
 
     if (style === "bullet") {
       result = result

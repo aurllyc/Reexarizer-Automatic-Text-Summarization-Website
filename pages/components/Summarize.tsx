@@ -64,14 +64,11 @@ const Summarize: React.FC = () => {
   const [language, setLanguage] = useState<Language>("english");
 
   const formatSummary = (text: string) => {
-    let cleaned = text.replace(/\s+/g, " ").replace(/\r?\n|\r/g, " ") .trim();
-
-    let sentences = cleaned
-      .split(/[.!?]/)
-      .map((s) => s.trim())
-      .filter((s) => s.length > 0);
-
-    return sentences.map((s) => `• ${s}.`).join("\n");
+    let cleaned = text
+      .replace(/\s+/g, " ")
+      .replace(/\r?\n|\r/g, "\n")
+      .trim();
+    return cleaned;
   };
 
   // --- Load & Save history ---
