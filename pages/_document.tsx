@@ -5,7 +5,6 @@ export default class Document extends NextDocument {
     return (
       <Html lang="en">
         <Head>
-          <title>Reexarizer | Summarizer</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>

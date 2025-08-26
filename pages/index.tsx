@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Head from "next/head";
 import Summarize from "./components/Summarize";
 
 const HomePage: React.FC = () => {
@@ -15,31 +16,42 @@ const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="flex-col items-center justify-center py-10 px-10 my-10">
-        <div className="flex-col items-center justify-center py-5 px-2">
-          <div className="flex items-center justify-start space-x-2">
-            <img src="/favicon/book.ico" alt="Favicon" className="w-8 h-8" />
-            <h1 className="font-bold text-4xl items-center text-success">
-              Reexarizer
-            </h1>
+    <>
+      <Head>
+        <title>Reexarizer | Summarizer</title>
+      </Head>
+      <main>
+        <div className="flex items-center justify-center">
+          <div className="flex-col items-center justify-center py-10 px-10 my-10">
+            <div className="flex-col items-center justify-center py-5 px-2">
+              <div className="flex items-center justify-start space-x-2">
+                <img
+                  src="/favicon/book.ico"
+                  alt="Favicon"
+                  className="w-8 h-8"
+                />
+                <h1 className="font-bold text-4xl items-center text-success">
+                  Reexarizer
+                </h1>
+              </div>
+              <p className="text-lg text-gray-450">
+                Reexarizer is a tool for summarizing text.
+              </p>
+            </div>
+
+            <Summarize />
           </div>
-          <p className="text-lg text-gray-450">
-            Reexarizer is a tool for summarizing text.
-          </p>
-        </div>
 
-        <Summarize />
-      </div>
-
-      <footer className="fixed bottom-0 w-full footer footer-center p-4 bg-base-300 text-base-content">
-        <div>
-          <p className="text-base text-gray-500">
-            &copy;{currentYear} - Reexarizer
-          </p>
+          <footer className="fixed bottom-0 w-full footer footer-center p-4 bg-base-300 text-base-content">
+            <div>
+              <p className="text-base text-gray-500">
+                &copy;{currentYear} - Reexarizer
+              </p>
+            </div>
+          </footer>
         </div>
-      </footer>
-    </div>
+      </main>
+    </>
   );
 };
 
