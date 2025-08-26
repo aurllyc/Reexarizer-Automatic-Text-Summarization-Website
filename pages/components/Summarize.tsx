@@ -52,6 +52,7 @@ const Summarize: React.FC = () => {
     "Paragraph"
   );
   const [copied, setCopied] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const [length, setLength] = useState(50);
   const [keywords, setKeywords] = useState<{ word: string; active: boolean }[]>(
     []
@@ -164,10 +165,10 @@ const Summarize: React.FC = () => {
     }
   };
 
-  const handleCopy = (content: string) => {
-    navigator.clipboard.writeText(content);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async (text: string, id: string) => {
+    await navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
   };
 
   const handleDownload = (content: string, filename: string) => {
