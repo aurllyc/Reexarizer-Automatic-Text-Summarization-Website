@@ -1,10 +1,14 @@
 import Replicate from "replicate";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { prompt } = req.body;
 
   try {
@@ -25,8 +29,7 @@ export default async function handler(req, res) {
     );
 
     res.status(200).json({ result: output });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to summarize" });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong" });
   }
 }
