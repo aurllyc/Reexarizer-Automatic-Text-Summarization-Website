@@ -340,7 +340,7 @@ const Summarize: React.FC = () => {
             {/* Mode Paragraph */}
             {mode === "Paragraph" && keywords.length > 0 && (
               <div className="flex-col items-center space-x-2">
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center">
                     <label className="text-md font-medium">
                       Select Keywords
