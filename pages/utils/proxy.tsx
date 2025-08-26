@@ -9,11 +9,18 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { prompt } = req.body;
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
   try {
+    const { prompt } = req.body;
+    if (!prompt) {
+      return res.status(400).json({ error: "Missing prompt" });
+    }
+
     const output = await replicate.run(
-      "ibm-granite/granite-3.3-8b-instruct:3ff9e6e20ff1f31263bf4f36c242bd9be1acb2025122daeefe2b06e883df0996",
+      "ibm-granite/granite-3.3-8b-instruct:latest",
       {
         input: {
           prompt,
@@ -28,8 +35,10 @@ export default async function handler(
       }
     );
 
-    res.status(200).json({ result: output });
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong" });
+    const resultText = Array.isArray(output) ? output.join("") : output;
+    res.status(200).json({ result: resultText });
+  } catch (error: any) {
+    console.error("API error:", error);
+    res.status(500).json({ error: error.message || "Something went wrong" });
   }
 }
