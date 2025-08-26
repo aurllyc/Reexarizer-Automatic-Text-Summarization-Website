@@ -2,6 +2,7 @@
 
 Reexarizer is a web-based **AI-powered text summarization tool** built with **Next.js, TypeScript, TailwindCSS, DaisyUI**, and powered by **IBM Granite via Replicate API**.  
 It helps you quickly generate clean and concise summaries from long texts — in **English** and **Indonesian**.
+
 🌐 **Live Demo:** [Reexarizer on Vercel](https://reexarizer-automatic-text-summariza.vercel.app/)
 
 ---
