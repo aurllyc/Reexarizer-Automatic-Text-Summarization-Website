@@ -554,7 +554,7 @@ const Summarize: React.FC = () => {
                       className="btn btn-xs sm:btn-sm btn-outline btn-primary"
                     >
                       <FontAwesomeIcon
-                        icon={copied ? faCheck : faCopy}
+                        icon={copied === item.id ? faCheck : faCopy}
                         className="text-sm"
                       />{" "}
                     </button>
